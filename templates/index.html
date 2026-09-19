@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Lista de Proveedores
+{% endblock %}
+
+{% block content %}
+
+    <div class="toolbar">
+        <a class="btn btn-primary" 
+           href="{{ url_for('nuevo_proveedor') }}" > + Nuevo proveedor </a>
+    </div>
+
+    <table class="tabla">
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>NIT</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for p in proveedores %}
+
+                <tr>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.nit }}</td>
+                    <td>{{ p.telefono }}</td>
+                    <td>{{ p.correo }}</td>
+                    <td> {{ "Activo" if p.activo else "Inactivo" }} </td>
+                    <td class="acciones">
+                        <a class="btn btn-warning"
+                           href="{{ url_for('editar_proveedor', id=p.id) }}" > Editar </a>
+
+                        <form method="post" action="{{ url_for('eliminar_proveedor', id=p.id) }}" >
+                            <button
+                                class="btn btn-danger"
+                                type="submit"
+                                onclick="return confirm('¿Eliminar proveedor?')" >
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
