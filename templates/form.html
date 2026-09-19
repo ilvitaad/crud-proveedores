@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ "Editar proveedor" if proveedor else "Nuevo proveedor" }}
+{% endblock %}
+
+{% block content %}
+    <h2>
+        {{ "Editar proveedor" if proveedor else "Nuevo proveedor" }}
+    </h2>
+
+    <form method="post" class="formulario">
+        <!-- Nombre -->
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" type="text" required
+            value="{{ proveedor.nombre if proveedor else '' }}">
+        <!-- NIT -->
+        <label for="nit">NIT</label>
+        <input id="nit" name="nit" type="text"
+            value="{{ proveedor.nit if proveedor else '' }}">
+
+        <!-- Teléfono -->
+        <label for="telefono">Teléfono</label>
+        <input
+            id="telefono" name="telefono" type="tel"
+            value="{{ proveedor.telefono if proveedor else '' }}">
+
+        <!-- Correo -->
+        <label for="correo">Correo</label>
+
+        <input id="correo" name="correo" type="email"
+            value="{{ proveedor.correo if proveedor else '' }}">
+
+        <!-- Dirección -->
+        <label for="direccion">Dirección</label>
+
+        <input id="direccion" name="direccion" type="text"
+            value="{{ proveedor.direccion if proveedor else '' }}">
+
+        <!-- Estado -->
+        <label class="chk">
+            <input type="checkbox" name="activo"
+                {{ "checked" if (not proveedor) or proveedor.activo else "" }}>Activo
+        </label>
+
+        <!-- Botones -->
+        <div class="form-acciones">
+            <button class="btn btn-primary" type="submit">Guardar</button>
+            <a class="btn" href="{{ url_for('index') }}" >Cancelar</a>
+        </div>
+    </form>
+{% endblock %}
